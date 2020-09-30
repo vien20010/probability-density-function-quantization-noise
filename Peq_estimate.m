@@ -13,11 +13,14 @@ t=linspace(0,T,N);
 %Random Signal to estimate quantization error
 %Signal=sin(t)+2*cos(t).^2+4*cos(3*t);
 Signal=1000*sin(t);
+
 %Quantization step size
 Delta=(max(Signal)-min(Signal))/Q;
+Shift = (max(Signal)+min(Signal))/2 + Delta/2;
+Shift_Signal=Signal - Shift;
 
 %Quantization step
-Step=floor(Signal/Delta);
+Step=round(Shift_Signal/Delta);
 %Because there are only Q possilble values
 %We must increase(decrease) min(max) Quantization step 1 unit
 %{
@@ -28,7 +31,7 @@ for i=1:N
     end
 end
 %}
-Quantized_Signal=Delta*Step+Delta/2;
+Quantized_Signal=Delta*Step+Shift;
 
 plot(t,Signal);
 hold on
@@ -36,7 +39,7 @@ plot(t,Quantized_Signal);
 hold off
 
 %Quantization error
-Error_Quan = Quantized_Signal - Signal;
+Error_Quan = abs(Quantized_Signal - Signal);
 Error_Quan_Square = Error_Quan.^2;
 
 %Estimate energy of Quatization error

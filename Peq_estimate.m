@@ -11,11 +11,12 @@ Q=input('Input The number of possilble value:');
 t=linspace(0,T,N);
 
 %Random Signal to estimate quantization error
-%Signal=sin(t)+2*cos(t).^2+4*cos(3*t);
-Signal=1000*sin(t);
+Signal=300*sin(t)+200*cos(t).^2+400*cos(3*t);
+%Signal=1000*sin(t);
 
 %Quantization step size
 Delta=(max(Signal)-min(Signal))/Q;
+
 Shift = (max(Signal)+min(Signal))/2 + Delta/2;
 Shift_Signal=Signal - Shift;
 
@@ -36,10 +37,11 @@ Quantized_Signal=Delta*Step+Shift;
 plot(t,Signal);
 hold on
 plot(t,Quantized_Signal);
+axis([0 2*pi -1000 1000]);
 hold off
 
 %Quantization error
-Error_Quan = abs(Quantized_Signal - Signal);
+Error_Quan = Quantized_Signal - Signal;
 Error_Quan_Square = Error_Quan.^2;
 
 %Estimate energy of Quatization error

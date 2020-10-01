@@ -1,9 +1,9 @@
 syms t;
 t=;
 sig=sin(t);
-partition = linspace(min(sig),max(sig),; % Phân ho?ch thành 12 kho?ng chia
+partition = linspace(min(sig),max(sig),; % Q -1 khoang luong tu 
 
-codebook = [-1125:250:1125]; % B? mã l??ng t? g?m 12 m?c
+codebook = [-1125:250:1125]; % Q muc luong tu
 
 [index,quants,distor]= quantiz(sig,partition,codebook);
 
